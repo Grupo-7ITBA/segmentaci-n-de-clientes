@@ -6,7 +6,7 @@ from direccion import Direccion
 class Cliente(ABC):
 
     def __init__(self, datos, datos_cuenta) -> None:
-        self.cuenta = Cuenta(datos_cuenta)
+        self.cuenta = Cuenta(datos_cuenta, datos['transacciones'])
         self.direccion = Direccion(datos['direccion'])
         self.nombre = datos['nombre']
         self.apellido = datos['apellido']
