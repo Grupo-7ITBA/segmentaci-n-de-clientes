@@ -1,16 +1,14 @@
-from Cliente import cliente
 import json
+from cliente import Cliente
 
-class clientesgold(cliente):
-    def __init__(self)-> None:
+class Gold(Cliente):
+    
+    def __init__(self) -> None:
         with open("eventos_gold.json") as jsonFile:
             archivo = json.load(jsonFile)
             jsonFile.close()
-            nombres = archivo['nombre'];
-            apellidos =archivo['apellido'];
-            dni = archivo['dni'];
-            tipo =archivo['tipo'];
-            numeros =archivo['numero'];
+            super().__init__(archivo, {'limite_extraccion_diario': 20000, 'limite_transferencia_recibida': 500000,
+                                       'costo_transferencia': 0.5})
 
     def puede_crear_chequera(self) -> bool:
         return True
