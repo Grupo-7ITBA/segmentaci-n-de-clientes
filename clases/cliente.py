@@ -18,7 +18,7 @@ class Cliente(ABC):
         pass
 
     @abstractmethod
-    def puede_crear_tarjeta_de_credito(self) -> bool:
+    def puede_crear_tarjeta_de_credito(self, cant_tarjetas) -> bool:
         pass
 
     @abstractmethod

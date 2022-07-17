@@ -24,3 +24,14 @@ class RazonRetiroEfectivo:
                 return f"No tienes fondos suficientes."
         else:
             return f"Excede el monto de MÁXIMO de ${cuenta.limite_extraccion_diario}"
+
+
+class RazonAltaChequera:
+
+    @staticmethod
+    def validacion(evento, cliente):
+        if not cliente.puede_crear_chequera(evento['totalChequerasActualmente']):
+            if evento['totalChequerasActualmente'] == 0:
+                return "El cliente no puede crear chequeras"
+            else:
+                return "El cliente no puede crear mas chequeras"
