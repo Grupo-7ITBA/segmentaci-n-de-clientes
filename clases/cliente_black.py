@@ -1,11 +1,11 @@
 import json
-from cliente import Cliente
+from clases.cliente import Cliente
 
 
 class Black(Cliente):
 
     def __init__(self) -> None:
-        with open("eventos_black.json") as jsonFile:
+        with open("data/eventos_black.json") as jsonFile:
             archivo = json.load(jsonFile)
             jsonFile.close()
         super().__init__(archivo, {'limite_extraccion_diario': 100000, 'limite_transferencia_recibida': None,

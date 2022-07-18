@@ -1,15 +1,18 @@
 import json
-from cliente import Cliente
+from clases.cliente import Cliente
 
 
 class Classic(Cliente):
 
     def __init__(self) -> None:
-        with open("eventos_classic.json") as jsonFile:
+        with open("data/eventos_classic.json") as jsonFile:
             archivo = json.load(jsonFile)
             jsonFile.close()
             super().__init__(archivo, {'limite_extraccion_diario': 10000, 'limite_transferencia_recibida': 150000,
                                        'costo_transferencia': 1})
+
+    def get_cuenta(self):
+        super(Classic, self).get_cuenta()
 
     def puede_crear_chequera(self, cant_chequeras) -> bool:
         return False

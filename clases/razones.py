@@ -1,15 +1,26 @@
+import clases.cliente
 
 class Razon:
 
-    def __init__(self, cuenta, evento):
-        self.razon = self.resolver(cuenta, evento)
+    def __init__(self, evento, cliente) -> None:
+        self.razon = self.resolver(evento, cliente)
 
     @staticmethod
-    def resolver(cuenta, evento):
+    def resolver(evento, obj) -> str:
         tipo_evento = evento['tipo']
         match tipo_evento:
             case 'RETIRO_EFECTIVO_CAJERO_AUTOMATICO':
-                return RazonRetiroEfectivo.validacion(evento, cuenta)
+                return RazonRetiroEfectivo.validacion(evento, obj.cuenta)
+            case 'ALTA_TARJETA_CREDITO':
+                return RazonAltaTarjetaCredito.validacion(evento, obj)
+            case 'ALTA_CHEQUERA':
+                return RazonAltaChequera.validacion(evento, obj)
+            case 'COMPRA_DOLAR':
+                return RazonCompraDolar.validacion(evento, obj)
+            case 'TRANSFERENCIA_ENVIADA':
+                return RazonTransferenciaEnviada.validacion(evento, obj.cuenta)
+            case 'TRANSFERENCIA_RECIBIDA':
+                return RazonTransferenciaRecibida.validacion(evento, obj.cuenta)
 
 
 class RazonRetiroEfectivo:
@@ -18,8 +29,7 @@ class RazonRetiroEfectivo:
     def validacion(evento, cuenta):
         if evento['monto'] < cuenta.limite_extraccion_diario:
             if not evento['monto'] <= evento['cupoDiarioRestante']:
-                return f"""La cantidad supera el cupo diario de retiros,
-                        solo puede retirar ${evento['cupoDiarioRestante']}. """
+                return f"La cantidad supera el cupo diario de retiros, solo puede retirar ${evento['cupoDiarioRestante']}. "
             elif evento['monto'] > evento['saldoEnCuenta']:
                 return f"No tienes fondos suficientes."
         else:
@@ -62,7 +72,7 @@ class RazonTransferenciaEnviada:
 
     @staticmethod
     def validacion(evento, cuenta):
-        if evento['monto'] > cuenta.costo_transferencia:
+        if cuenta.costo_transferencia == None or evento['monto'] > cuenta.costo_transferencia:
             return f"El monto ${evento['monto']} supera su saldo en cuenta"
 
 
@@ -70,6 +80,5 @@ class RazonTransferenciaRecibida:
 
     @staticmethod
     def validacion(evento, cuenta):
-        if evento['monto'] > cuenta.limite_transferencia_recibida:
+        if cuenta.limite_transferencia_recibida == None or evento['monto'] > cuenta.limite_transferencia_recibida:
             return f"No puede recibir un monto de ${evento['monto']} porque supera su limite sin aviso"
-

@@ -9,4 +9,4 @@ class Direccion:
         self.pais = direccion['pais']
 
     def output_as_label(self):
-        return f"<label>{self.calle} N° {self.numero}, {self.ciudad}, {self.provincia}, {self.pais}</label>"
+        return f"{self.calle} N° {self.numero}, {self.ciudad}, {self.provincia}, {self.pais}"
