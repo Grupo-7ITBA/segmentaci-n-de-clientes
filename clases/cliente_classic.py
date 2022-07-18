@@ -11,9 +11,6 @@ class Classic(Cliente):
             super().__init__(archivo, {'limite_extraccion_diario': 10000, 'limite_transferencia_recibida': 150000,
                                        'costo_transferencia': 1})
 
-    def get_cuenta(self):
-        super(Classic, self).get_cuenta()
-
     def puede_crear_chequera(self, cant_chequeras) -> bool:
         return False
 
