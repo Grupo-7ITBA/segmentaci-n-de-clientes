@@ -64,7 +64,7 @@ class AltaTarjetaCredito(Razon):
         self.totalTarjetas = totalTarjetas
 
         if(type == "CLASSIC"):
-            Razon.resolver(self, "No puedes tener")
+            Razon.resolver(self, "No puedes tener tarjeta")
         elif(type == "GOLD"):
             if(totalTarjetas > 1):
                 Razon.resolver(self, "Máximo 1 tarjeta!")
@@ -83,7 +83,7 @@ class AltaChequera(Razon):
         self.totalChequeras = totalChequeras
 
         if(type == "CLASSIC"):
-            Razon.resolver(self, "No puedes tener")
+            Razon.resolver(self, "No puedes tener chequera")
         elif(type == "GOLD"):
             if(totalChequeras > 1):
                 Razon.resolver(self, "Máximo 1 chequera!")
@@ -103,7 +103,7 @@ class ComprarDolar(Razon):
         self.saldoEnCuenta = saldoEnCuenta
 
         if (type == "CLASSIC"):
-            Razon.resolver(self, "No puedes tener")
+            Razon.resolver(self, "No puedes comprar dólares")
         elif (type == "GOLD"):
             if(saldoEnCuenta - monto) < -10000:
                 Razon.resolver(self, "Saldo insuficiente!")
